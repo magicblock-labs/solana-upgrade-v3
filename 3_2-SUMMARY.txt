@@ -3,7 +3,7 @@ RESEARCH ISSUE 3.2: BuiltinFunctionWithContext Signature Changes
 
 OBJECTIVE COMPLETED: ✅ VERIFIED
 
-Research Document: /tmp/solana-upgrade/3_2-builtin-function-context.md
+Research Document: https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/3_2-builtin-function-context.md
 Status: Comprehensive analysis with code examples and migration strategy
 
 KEY FINDINGS

@@ -4,7 +4,7 @@ RESEARCH ISSUE 5.2: SVMMessage and SanitizedTransaction Boundary Changes
 RESEARCH COMPLETION: ✓ COMPLETE
 
 DELIVERABLE:
-  Location: /tmp/solana-upgrade/5_2-svm-message-sanitized-txn.md
+  Location: https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/5_2-svm-message-sanitized-txn.md
   Size: 451 lines
   Status: READY FOR REVIEW
 

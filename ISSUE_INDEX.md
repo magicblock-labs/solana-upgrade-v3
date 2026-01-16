@@ -242,7 +242,7 @@ All findings based on:
 1. **Find your issue**: Search by # or category
 2. **Check status**: Green (no change) or Red (breaking)
 3. **Estimate effort**: Use effort column
-4. **Find document**: Search `/tmp/solana-upgrade/` directory
+4. **Find document**: Search `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/` directory
 5. **Cross-reference**: Use file mapping section
 
 **For details**: Read corresponding detailed issue document (e.g., `1_1-accountshareddata-enum.md`)

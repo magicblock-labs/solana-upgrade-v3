@@ -273,9 +273,9 @@ NEXT STEPS
 ================================================================================
 
 1. IMMEDIATE (Today):
-   ├─ Review /tmp/solana-upgrade/README.md
-   ├─ Review /tmp/solana-upgrade/QUICK_FIX_2_3.md
-   └─ Review /tmp/solana-upgrade/CODE_CHANGES_2_3.md
+   ├─ Review https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/README.md
+   ├─ Review https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/QUICK_FIX_2_3.md
+   └─ Review https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/CODE_CHANGES_2_3.md
 
 2. SHORT-TERM (This week):
    ├─ Update magicblock-processor/src/executor/processing.rs

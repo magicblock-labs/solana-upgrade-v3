@@ -53,4 +53,4 @@ NOTES:
 
 CONCLUSION: Issue 2.4 is NOT a migration concern.
 
-Document: /tmp/solana-upgrade/2_4-accounts-balances.md
+Document: https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_4-accounts-balances.md

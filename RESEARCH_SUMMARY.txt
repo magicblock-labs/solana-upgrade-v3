@@ -2,7 +2,7 @@ RESEARCH ISSUE 4.2: INSTRUCTION AND COMPILEDINSTRUCTION CHANGES IN SOLANA 3.X
 ===============================================================================
 
 DELIVERABLE LOCATION:
-/tmp/solana-upgrade/4_2-instruction-types.md (626 lines)
+https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/4_2-instruction-types.md (626 lines)
 
 RESEARCH COMPLETION STATUS: ✓ COMPLETE
 
@@ -104,4 +104,4 @@ FILES ANALYZED:
 2. Add backward-compat wrapper (if available in 3.x)
 3. Adopt transaction view API (3.x+ recommended approach)
 
-**Document:** `/tmp/solana-upgrade/5_2-svm-message-sanitized-txn.md` (251 lines)
+**Document:** `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/5_2-svm-message-sanitized-txn.md` (251 lines)

@@ -86,5 +86,5 @@ CRITICAL SUCCESS FACTORS:
 4. ⏭️ Create detailed rebase plan with phased approach
 
 ================================================================================
-Full analysis in: /tmp/solana-upgrade/5_1-fork-rebase-requirements.md
+Full analysis in: https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/5_1-fork-rebase-requirements.md
 ================================================================================

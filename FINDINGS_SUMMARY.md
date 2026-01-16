@@ -532,29 +532,29 @@ The **Solana 2.x → 3.x upgrade is feasible but requires 7-11 weeks** of focuse
 
 The upgrade is **technically possible** with good planning and **should be deferred 2-3 months** to allow Solana 3.x ecosystem to mature. Early preparation (import cleanup, fork strategy decisions) can begin immediately.
 
-All findings are now documented in individual issue files in `/tmp/solana-upgrade/` for detailed reference.
+All findings are now documented in individual issue files in `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/` for detailed reference.
 
 ---
 
 ## Document Index
 
-- `/tmp/solana-upgrade/1_1-accountshareddata-enum.md` — Account enum analysis
-- `/tmp/solana-upgrade/1_2-accountseqlock-api.md` — Seqlock API verification
-- `/tmp/solana-upgrade/1_3-readable-writable-traits.md` — Trait API stability
-- `/tmp/solana-upgrade/1_4-fork-custom-flags.md` — Custom flag implementations
-- `/tmp/solana-upgrade/2_1-txn-processing-env.md` — Environment field changes
-- `/tmp/solana-upgrade/2_2-load-execute-signature.md` — Constructor signature
-- `/tmp/solana-upgrade/2_3-processed-transaction.md` — Enum redesign
-- `/tmp/solana-upgrade/2_4-accounts-balances.md` — Balances structure
-- `/tmp/solana-upgrade/2_5-fee-only-semantics.md` — Fee handling
-- `/tmp/solana-upgrade/3_1-crate-version-skew.md` — Version alignment
-- `/tmp/solana-upgrade/3_2-builtin-function-context.md` — Builtin signatures
-- `/tmp/solana-upgrade/3_3-loader-interfaces.md` — Loader stability
-- `/tmp/solana-upgrade/4_1-core-types-paths.md` — Import path analysis
-- `/tmp/solana-upgrade/4_2-instruction-types.md` — Instruction API changes
-- `/tmp/solana-upgrade/5_1-fork-rebase-requirements.md` — Fork rebase analysis
-- `/tmp/solana-upgrade/5_2-svm-message-sanitized-txn.md` — Message boundary changes
-- `/tmp/solana-upgrade/5_3-account-loader-rollback.md` — API consolidation
-- `/tmp/solana-upgrade/6_1-feature-set-structure.md` — FeatureSet API
-- `/tmp/solana-upgrade/6_2-feature-persistence.md` — Feature account semantics
-- `/tmp/solana-upgrade/FINDINGS_SUMMARY.md` — This document
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/1_1-accountshareddata-enum.md` — Account enum analysis
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/1_2-accountseqlock-api.md` — Seqlock API verification
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/1_3-readable-writable-traits.md` — Trait API stability
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/1_4-fork-custom-flags.md` — Custom flag implementations
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_1-txn-processing-env.md` — Environment field changes
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_2-load-execute-signature.md` — Constructor signature
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_3-processed-transaction.md` — Enum redesign
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_4-accounts-balances.md` — Balances structure
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_5-fee-only-semantics.md` — Fee handling
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/3_1-crate-version-skew.md` — Version alignment
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/3_2-builtin-function-context.md` — Builtin signatures
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/3_3-loader-interfaces.md` — Loader stability
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/4_1-core-types-paths.md` — Import path analysis
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/4_2-instruction-types.md` — Instruction API changes
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/5_1-fork-rebase-requirements.md` — Fork rebase analysis
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/5_2-svm-message-sanitized-txn.md` — Message boundary changes
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/5_3-account-loader-rollback.md` — API consolidation
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/6_1-feature-set-structure.md` — FeatureSet API
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/6_2-feature-persistence.md` — Feature account semantics
+- `https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/FINDINGS_SUMMARY.md` — This document

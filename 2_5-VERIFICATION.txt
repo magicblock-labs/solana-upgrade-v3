@@ -122,6 +122,6 @@ MIGRATION REQUIRED when upgrading to Solana 3.x: add explicit nonce variant hand
 
 ---
 
-Deliverable: /tmp/solana-upgrade/2_5-fee-only-semantics.md (443 lines, comprehensive)
+Deliverable: https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_5-fee-only-semantics.md (443 lines, comprehensive)
 Generated: 2026-01-15
 Status: READY FOR RELEASE

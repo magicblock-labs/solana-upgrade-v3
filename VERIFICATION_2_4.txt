@@ -84,7 +84,7 @@ Status:    ✅ COMPATIBLE - Direct Vec<u64> access unchanged
 DELIVERABLE STATUS:
 ───────────────────
 
-Document Location: /tmp/solana-upgrade/2_4-accounts-balances.md
+Document Location: https://github.com/magicblock-labs/solana-upgrade-v3/blob/main/2_4-accounts-balances.md
 
 Contents Verified:
 [✓] Field structure (names and types)
