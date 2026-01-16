@@ -1,0 +1,56 @@
+ISSUE 2.4: AccountsBalances Type Changes in Solana 3.x
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FINDING: ✅ NO BREAKING CHANGES
+
+STRUCT DEFINITION (UNCHANGED):
+───────────────────────────────
+pub struct AccountsBalances {
+    pub pre: Vec<u64>,    // ← Still Vec<u64>
+    pub post: Vec<u64>,   // ← Still Vec<u64>
+}
+
+FIELD ANALYSIS:
+───────────────
+Field        | Type      | 2.x         | 3.x         | Status
+─────────────┼──────────┼─────────────┼─────────────┼──────────
+pre          | Vec<u64> | Vec<u64>    | Vec<u64>    | ✅ SAME
+post         | Vec<u64> | Vec<u64>    | Vec<u64>    | ✅ SAME
+Description  | Balances | Lamports    | Lamports    | ✅ SAME
+Semantics    | All accts| All accts   | All accts   | ✅ SAME
+
+RISKS VERIFIED (ALL CLEARED):
+──────────────────────────────
+❌ Field name changes (pre/post)           → NOT PRESENT
+❌ Type changes (Vec<u64> → other)         → NOT PRESENT
+❌ Token balance inclusion                 → NOT PRESENT
+❌ SmallVec/ArrayVec switch                → NOT PRESENT
+❌ Fee-payer-only semantics changes        → NOT PRESENT
+
+MAGICBLOCK USAGE (processing.rs):
+──────────────────────────────────
+Line 40, 87:  let (result, balances) = self.process(&transaction);
+Line 148:     (result, output.balances)
+Line 192-193: pre_balances: balances.pre, post_balances: balances.post,
+Line 207-208: pre_balances: balances.pre, post_balances: balances.post,
+
+STATUS: ✅ ALL LINES WORK WITHOUT MODIFICATION
+
+MIGRATION REQUIRED: ❌ NONE
+
+ACTION ITEMS: 0 (zero)
+
+TESTING IMPACT: None - no regression testing needed
+
+NOTES:
+──────
+- Only lamports tracked (u64), not SPL tokens
+- Pre/post track ALL transaction accounts' balances
+- For failed txns, tracks fee-payer balance change
+- Fully compatible between 2.x and 3.x
+- No type conversions needed
+- No field renames required
+
+CONCLUSION: Issue 2.4 is NOT a migration concern.
+
+Document: /tmp/solana-upgrade/2_4-accounts-balances.md

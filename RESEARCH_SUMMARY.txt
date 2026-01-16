@@ -1,0 +1,107 @@
+RESEARCH ISSUE 4.2: INSTRUCTION AND COMPILEDINSTRUCTION CHANGES IN SOLANA 3.X
+===============================================================================
+
+DELIVERABLE LOCATION:
+/tmp/solana-upgrade/4_2-instruction-types.md (626 lines)
+
+RESEARCH COMPLETION STATUS: ✓ COMPLETE
+
+KEY FINDINGS:
+
+1. INSTRUCTION STRUCT CHANGES
+   - Field type: Pubkey (2.x) → Address (3.x)
+   - Address is the NEW primary type, Pubkey is now an alias
+   - All three fields unchanged: program_id, accounts, data
+   - Serialization format: NO CHANGE
+
+2. COMPILEDINSTRUCTION STRUCT CHANGES
+   - Structure itself: UNCHANGED
+   - Fields: program_id_index (u8), accounts (Vec<u8>), data (Vec<u8>)
+   - Binary serialization: COMPATIBLE between versions
+   - Methods may have changed but core functionality preserved
+
+3. BREAKING CHANGES (CRITICAL FOR MAGICBLOCK)
+   HIGH IMPACT:
+   - Type mismatch: Pubkey → Address incompatibility
+   - Module reorganization: system_instruction moved to solana-system-interface
+   - InstructionError::BorshIoError signature changed (no String param)
+   
+   MEDIUM IMPACT:
+   - Hash.as_bytes() replaces direct .0 field access
+   - Message parsing methods may have changed
+   
+   LOW IMPACT:
+   - CompiledInstruction itself largely stable
+   - Serialization format unchanged
+
+4. MAGICBLOCK IMPACT ANALYSIS
+   Most Affected:
+   - magicblock-processor (CRITICAL): Uses Instruction heavily
+   - magicblock-committor-program (HIGH): System program calls
+   - magicblock-magic-program-api (HIGH): Instruction serialization
+   - test-kit and test-integration (MEDIUM): Test infrastructure
+
+5. MIGRATION COMPLEXITY
+   - Overall: MEDIUM-HIGH
+   - Estimated effort: 1-2 weeks
+   - Dependencies affected: ~5 major modules
+   - Root cause: Type system refactor + module reorganization
+
+6. CRITICAL MIGRATION STEPS
+   1. Update Cargo.toml to solana-* 3.0+
+   2. Add new interface crates (solana-system-interface, etc.)
+   3. Change imports for moved modules
+   4. Fix Pubkey → Address type mismatches
+   5. Update error handling for changed variants
+   6. Test serialization roundtrips
+   7. Verify transaction compatibility
+
+7. BACKWARD COMPATIBILITY
+   ✓ Transaction binary format: COMPATIBLE
+   ✗ Source code: NOT COMPATIBLE
+   - Old transactions deserialize fine with 3.x
+   - Code must be updated for compilation
+
+RECOMMENDATIONS:
+1. Staged migration using feature flags
+2. Comprehensive type mismatch audit
+3. Expand test coverage for instruction handling
+4. Plan 2-week migration window
+5. Verify system program interactions post-upgrade
+
+FILES ANALYZED:
+- solana-sdk GitHub repository (anza-xyz/solana-sdk)
+- Solana SDK documentation (docs.rs)
+- Solana official docs (solana.com/docs)
+- Anchor framework changes
+- MagicBlock codebase (local analysis)
+
+
+---
+
+## Issue 5.2: SVMMessage and SanitizedTransaction Boundary Changes (COMPLETED)
+
+**Status:** VERIFIED - Breaking changes identified
+
+**Key Findings:**
+1. `SanitizedTransaction::get_loaded_addresses()` method exists in Solana 2.2.1
+2. In Solana 3.x+, architecture shifted to **transaction view pattern**
+3. `LoadedAddresses` retrieval changes from direct method to construction-phase operation
+4. SVMMessage trait remains compatible but implementations change
+5. MagicBlock fork is at 2.2.1, would need updates for 3.x+
+
+**Files Affected:**
+- magicblock-processor/src/executor/processing.rs (lines 195, 209)
+- magicblock-processor/src/executor/callback.rs (line 46)
+
+**Breaking Changes:**
+- API: `txn.get_loaded_addresses()` → view-based pattern
+- Architecture: Single transaction type → generic transaction view
+- Message handling: Embedded method → construction parameter
+
+**Upgrade Path Options:**
+1. Maintain Solana 2.2.1 compatibility (no code changes)
+2. Add backward-compat wrapper (if available in 3.x)
+3. Adopt transaction view API (3.x+ recommended approach)
+
+**Document:** `/tmp/solana-upgrade/5_2-svm-message-sanitized-txn.md` (251 lines)

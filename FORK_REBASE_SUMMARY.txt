@@ -1,0 +1,90 @@
+================================================================================
+FORK REBASE REQUIREMENTS - EXECUTIVE SUMMARY
+================================================================================
+
+OBJECTIVE: Verify fork rebase requirements for Solana 3.x upgrade
+
+FORKS ANALYZED:
+1. magicblock-svm (SVM transaction processor)
+   - Current: v2.2.1 (rev 3e9456ec4, 28 commits)
+   - Base: Solana 2.2.1
+   - Complexity: MODERATE-HIGH
+   - Effort: 3-4 weeks
+   
+2. solana-account (account data structures)
+   - Current: v2.2.1 (rev 2246929, 55 commits)
+   - Base: Solana 2.2.1
+   - Complexity: HIGH (CRITICAL RISK: memory layout changes)
+   - Effort: 4-5 weeks
+
+KEY FINDINGS:
+
+1. CUSTOM FEATURES IN magicblock-svm:
+   ✓ Slot reset without processor reinitialization
+   ✓ Account balance collection during execution
+   ✓ Escrow charging for ephemeral balances
+   ✓ Account delegation checks
+   ✓ Improved transaction diagnostics
+   ✓ Program cache management with pruning/replenish
+
+2. CUSTOM FEATURES IN solana-account:
+   ✓ Account state rollback capability
+   ✓ Lamports modification tracking
+   ✓ Confined account flag
+   ✓ Undelegating status flag
+   ✓ Compressed account flag
+   ✓ Bit-packed boolean flags (removed rent_epoch)
+   ✓ Privileged account flag
+   ✓ Remote slot tracking & JIT cloning support
+
+3. BREAKING API CHANGES (2.2 → 4.0-alpha):
+
+   magicblock-svm:
+   - TransactionProcessingEnvironment<'a> → TransactionProcessingEnvironment (lifetime removed)
+   - Arc<FeatureSet> → SVMFeatureSet (type change)
+   - rent_collector: Option<&'a dyn SVMRentCollector> → rent: Rent (major change)
+   - configure_program_runtime_environments() method removed
+   - NEW: set_environments(), set_execution_cost() methods
+   
+   solana-account:
+   - CRITICAL: Memory layout changed (removed rent_epoch, bit-packed flags)
+   - 6+ custom fields diverge from upstream
+   - CoW layer completely custom
+   - Serialization format incompatible
+
+4. RISK ASSESSMENT:
+   
+   magicblock-svm: HIGH RISK
+   - Type changes require comprehensive code updates
+   - Feature set management needs rewrite
+   - Account loader heavily modified (94KB file)
+   - But: Rebaseable with systematic approach
+   
+   solana-account: CRITICAL RISK
+   - Memory layout incompatible with upstream
+   - Cannot deserialize old account format
+   - Custom fields have no upstream equivalent
+   - May require architectural redesign (wrapper pattern vs. full fork)
+
+5. TIMELINE:
+   - Optimistic: 5.5 weeks
+   - Realistic: 7.5 weeks (2 months)
+   - Pessimistic: 11 weeks (3 months)
+
+RECOMMENDATIONS:
+1. Plan rebase after Solana 3.x stabilizes
+2. Decide account extension strategy BEFORE rebasing (wrapper vs. fork)
+3. Freeze fork development before starting rebase
+4. Set up comprehensive integration test suite
+5. Do not combine multiple breaking changes in single PR
+6. Plan gradual production rollout (canary → staging → prod)
+
+CRITICAL SUCCESS FACTORS:
+1. ✓ Detailed upstream API inventory (COMPLETED - see full document)
+2. ⏭️ Audit all MagicBlock code using fork APIs
+3. ⏭️ Decide account extension strategy
+4. ⏭️ Create detailed rebase plan with phased approach
+
+================================================================================
+Full analysis in: /tmp/solana-upgrade/5_1-fork-rebase-requirements.md
+================================================================================

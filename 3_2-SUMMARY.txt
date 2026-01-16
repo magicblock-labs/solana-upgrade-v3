@@ -1,0 +1,112 @@
+RESEARCH ISSUE 3.2: BuiltinFunctionWithContext Signature Changes
+=================================================================
+
+OBJECTIVE COMPLETED: ✅ VERIFIED
+
+Research Document: /tmp/solana-upgrade/3_2-builtin-function-context.md
+Status: Comprehensive analysis with code examples and migration strategy
+
+KEY FINDINGS
+============
+
+1. TYPE ALIAS UNCHANGED ✅
+   - BuiltinFunctionWithContext definition identical in 2.2 and 3.0
+   - Function pointer signature UNCHANGED: fn(&mut InvokeContext, u64×5, &mut MemoryMapping) -> Result<u64>
+   - Builtin registration mechanism unchanged
+
+2. CONTEXT STRUCTURE CHANGED 🔴 BREAKING
+   InvokeContext<'a> in 3.0 adds 2 new fields:
+   - execution_cost: SVMTransactionExecutionCost (NEW)
+   - account_data_direct_mapping: bool (NEW)
+
+3. ENVIRONMENT CONFIG RESTRUCTURED 🔴 BREAKING
+   Solana 2.2 → Solana 3.0:
+   - epoch_total_stake: u64 → REMOVED
+   - get_epoch_vote_account_stake_callback: &dyn Fn(...) → REPLACED
+   - NEW: epoch_stake_callback: &dyn InvokeContextCallback (trait-based)
+   - feature_set: Arc<FeatureSet> → &'a SVMFeatureSet (borrowed)
+
+4. COMPUTE BUDGET TYPE SPLIT 🔴 BREAKING
+   Solana 2.2: ComputeBudget (single type)
+   Solana 3.0: 
+   - SVMTransactionExecutionBudget (limits/max values)
+   - SVMTransactionExecutionCost (actual costs incurred)
+
+5. CALLBACK DESIGN MODERNIZED 🔴 BREAKING
+   From: &dyn Fn(&Pubkey) -> u64 (function pointer)
+   To: &dyn InvokeContextCallback (trait object)
+   - More extensible
+   - Type-safe callback interface
+
+IMPACT ON MAGICBLOCK
+====================
+
+Files affected:
+  ✅ magicblock-processor/src/builtins.rs — NO CHANGES NEEDED
+  ⚠️  magicblock-processor/src/executor/mod.rs — CHECK ProgramCacheEntry APIs
+  ⚠️  Any builtin implementations — Need context field updates
+
+Breaking change level: HIGH (but localized to context access patterns)
+
+Estimated migration effort: 1-2 developer days
+Risk level: Low to Medium
+
+MIGRATION CHECKLIST
+===================
+
+High Priority:
+  [ ] Update solana-program-runtime version in Cargo.toml
+  [ ] Run cargo check — identify type mismatches
+  [ ] Update all invoke_context.compute_budget access patterns
+  [ ] Update EnvironmentConfig callback access:
+      OLD: (invoke_context.environment_config.get_epoch_vote_account_stake_callback)(pubkey)
+      NEW: invoke_context.environment_config.epoch_stake_callback.get_epoch_vote_account_stake(pubkey)
+  [ ] Verify ProgramCacheEntry::new_builtin() signature
+
+Medium Priority:
+  [ ] Test execution_cost field handling
+  [ ] Verify feature_set access still works (SVMFeatureSet interface)
+  [ ] Check account_data_direct_mapping flag compatibility
+
+Low Priority:
+  [ ] Update documentation
+  [ ] Consider optimizations with new fields
+  [ ] Review cost tracking patterns
+
+VERIFICATION POINTS
+===================
+
+1. Type checking:
+   cargo check --all
+
+2. Lint:
+   make lint
+
+3. Tests:
+   cargo test
+   make test
+
+4. Code audit focus areas:
+   - Search for "invoke_context.compute_budget"
+   - Search for "environment_config.get_epoch"
+   - Search for "environment_config.feature_set"
+   - Search for "ProgramCacheEntry::new_builtin"
+
+REFERENCES
+==========
+
+Source Analysis:
+  - Solana 2.2: anza-xyz/agave v2.2 branch
+  - Solana 3.0: anza-xyz/agave v3.0 branch
+  - Compared: program-runtime/src/invoke_context.rs
+  - New crates: solana_svm_callback, solana_svm_feature_set
+
+Key Takeaway
+============
+
+The BuiltinFunctionWithContext type alias is stable, but code accessing
+InvokeContext fields requires refactoring. The changes are well-scoped,
+focused on context structure improvements for better cost tracking and
+callback flexibility in the SVM (Solana Virtual Machine).
+
+All changes are semantic, not breaking at the binary level.
